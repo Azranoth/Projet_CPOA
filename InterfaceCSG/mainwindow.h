@@ -10,7 +10,10 @@
 //#include "csgTree.h"
 
 #include "Array.h"
+#include "matrix33d.h"
 #include "vector.h"
+
+// TESTS
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 

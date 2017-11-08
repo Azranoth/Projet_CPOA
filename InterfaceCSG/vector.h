@@ -125,6 +125,10 @@ public:
     inline Vec2i(const int input[2]) : Vector<int,2>(input){}
     inline Vec2i(const Array<int,2> array) : Vector<int,2>(array){}
 
+    int cross(const Vec2i& vec){
+        return (this->data[0]*vec.data[1] - this->data[1]*vec.data[0]);
+    }
+
 };
 
 class Vec3i : public Vector<int,3>{
@@ -160,6 +164,10 @@ public:
     inline Vec2f() : Vector<double,2>(){}
     inline Vec2f(const double input[2]) : Vector<double,2>(input){}
     inline Vec2f(const Array<double,2> array) : Vector<double,2>(array){}
+
+    double cross(const Vec2f& vec){
+        return (this->data[0]*vec.data[1] - this->data[1]*vec.data[0]);
+    }
 };
 
 class Vec3f : public Vector<double,3>{

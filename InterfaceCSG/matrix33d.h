@@ -6,13 +6,14 @@
 
 class Matrix33d {
 protected:
-    Array<Array<double,3>,3> matData;
+    Array<double,3> matData[3];
 public:
     // CONSTRUCTEURS
     Matrix33d(){
+        //this->matData = Array<Array<double,3>,3>();
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
-                this->matData[i][j] = double(0);
+                this->matData[i]=Array<double,3>();
             }
         }
     }
