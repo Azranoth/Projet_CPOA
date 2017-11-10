@@ -10,7 +10,8 @@ Matrix33d Matrix33d::inversion(){
             matData[0][1]*matData[1][0]*matData[2][2];
 
     if(det == 0){
-        return nullptr;
+        std::cout << "DETERMINANT NUL\n";
+        exit(1);
     }
 
     double tab_invert[3][3];
@@ -30,5 +31,14 @@ Matrix33d Matrix33d::inversion(){
     Matrix33d invert = Matrix33d(tab_invert);
     return invert;
 }
+
+
+
+
+
+
+
+
+
 
 
