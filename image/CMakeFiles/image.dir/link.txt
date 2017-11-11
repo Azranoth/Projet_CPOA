@@ -1,0 +1,2 @@
+/usr/bin/ar qc libimage.a  CMakeFiles/image.dir/image2d.cpp.o CMakeFiles/image.dir/imgGradient.cpp.o
+/usr/bin/ranlib libimage.a

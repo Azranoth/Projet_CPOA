@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/test_mat.dir/testMatrix.cpp.o  -o test_mat -rdynamic ../libvector_matrix.a 

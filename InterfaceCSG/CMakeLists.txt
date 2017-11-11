@@ -37,5 +37,3 @@ target_link_libraries(${PROJECT_NAME}
         debug gmockd optimized gmock
         ${CMAKE_THREAD_LIBS_INIT}
         ${OPENGL_LIBRARIES})
-
-#target_link_libraries(${PROJECT_NAME} csg vector_matrix image particle Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})

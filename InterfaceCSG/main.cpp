@@ -221,14 +221,10 @@ TEST(MatTest, testApplyTransform){
 
     Matrix33d mat1;
     Matrix33d::setTranslation(mat1, 5.0, 3.0);
-    mat1.display();
     Matrix33d mat2;
     Matrix33d::setScaling(mat2, 4.0);
-    mat2.display();
     Matrix33d::applyTransformation(mat1, mat2);
 
-    mat2.display();
-    /*
     EXPECT_DOUBLE_EQ(mat1[0][0], 4.0);
     EXPECT_DOUBLE_EQ(mat1[0][1], 0.0);
     EXPECT_DOUBLE_EQ(mat1[0][2], 20.0);
@@ -237,7 +233,7 @@ TEST(MatTest, testApplyTransform){
     EXPECT_DOUBLE_EQ(mat1[1][2], 12.0);
     EXPECT_DOUBLE_EQ(mat1[2][0], 0.0);
     EXPECT_DOUBLE_EQ(mat1[2][1], 0.0);
-    EXPECT_DOUBLE_EQ(mat1[2][2], 4.0);*/
+    EXPECT_DOUBLE_EQ(mat1[2][2], 4.0);
 }
 
 

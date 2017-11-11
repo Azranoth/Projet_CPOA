@@ -9,8 +9,8 @@ else()
 endif()
 
 
-#add_subdirectory(vectorMatrix)
-#add_subdirectory(image)
+add_subdirectory(vectorMatrix)
+add_subdirectory(image)
 #add_subdirectory(csg)
 #add_subdirectory(particle)
 add_subdirectory(InterfaceCSG)
