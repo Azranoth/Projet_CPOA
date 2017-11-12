@@ -3,7 +3,9 @@
 
 #include <chrono>
 #include <ctime>
+#include <iostream>
 #include <fstream>
+#include <sstream>
 
 #include "image2d.h"
 
@@ -15,6 +17,7 @@ public:
     Image2Grey(const int x, const int y, unsigned char *input) { Image2D<unsigned char>(x,y,input); }
 
     void exportToPGM();
+    void importPGM(const std::string filename);
     Image2Grey subSampling();
     Image2Grey threshold(const int val);
 

@@ -14,7 +14,8 @@ void Image2Grey::exportToPGM(){
 
     std::ofstream fileOut (fileToOpen.c_str(), std::ios::out);
     // Nombre magique PGM, dimensions de l'image & valeur maximale d'un pixel
-    fileOut << "P2" << std::endl << _w << " " << _h << std::endl << "255" << std::endl;
+    // Fichier PGM binaire -> valeurs comprises entre 0 et 255
+    fileOut << "P5" << std::endl << _w << " " << _h << std::endl << "255" << std::endl;
 
     // Valeur des pixels
     for(int i = 0; i < _w; i++){
@@ -25,6 +26,29 @@ void Image2Grey::exportToPGM(){
     }
 
     fileOut.close();
+}
+
+void Image2Grey::importPGM(const std::string filename){
+    ifstream(filename);
+    stringstream ss;
+    string inputLine = "";
+
+    // Première ligne -> Version PGM du fichier
+    getline(infile, inputLine);
+    if(inputLine.compare("P5") != 0){
+        std::out << "PGM version error : Binary required (P5)" << std::endl;
+        exit(1);
+    }
+    // Seconde ligne -> dimensions de l'image
+    ss << infile.rdbuf();
+    ss >> _w >> _h;
+    _imgData = new unsigned char[_w*_h];
+
+    for(int i = 0; i < _w*_h; i++){
+        ss >> _imgData[i];
+    }
+
+    infile.close();
 }
 
 Image2Grey Image2Grey::subSampling(){
