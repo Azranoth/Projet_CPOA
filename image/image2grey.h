@@ -13,8 +13,8 @@ class Image2Grey : public Image2D<unsigned char> {
 public:
 
     // CONSTRUCTEURS
-    Image2Grey(const int x, const int y) { Image2D<unsigned char>(x,y); }
-    Image2Grey(const int x, const int y, unsigned char *input) { Image2D<unsigned char>(x,y,input); }
+    Image2Grey(const int x, const int y) : Image2D<unsigned char>(x,y){}
+    Image2Grey(const int x, const int y, unsigned char *input) : Image2D<unsigned char>(x,y,input){}
 
     void exportToPGM();
     void importPGM(const std::string filename);

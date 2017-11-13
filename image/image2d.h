@@ -5,8 +5,7 @@
 
 
 template<typename T>
-class Image2D
-{
+class Image2D {
 protected:
     T *_imgData;
     int _w;
@@ -19,7 +18,7 @@ public:
         _imgData = new T[_w*_h];
         for(int i = 0; i < _w; i++){
             for(int j = 0; j < _h; j++){
-                this(i,j) = T(0);
+                (*this)(i,j) = T(0);
             }
         }
     }
@@ -51,7 +50,7 @@ public:
 
     // AFFECTATION
     void setPixel(const int x, const int y, const T& value){
-        this(x,y) = value;
+        (*this)(x,y) = value;
     }
 
     void imgSwap(Image2D<T> img);
