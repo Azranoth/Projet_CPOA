@@ -20,7 +20,7 @@ void Image2Grey::exportToPGM(){
     // Valeur des pixels
     for(int i = 0; i < _w; i++){
         for(int j = 0; j < _h; j++){
-            fileOut << (*this)(i,j) << " ";
+            fileOut << std::to_string((*this)(i,j)) << " ";
         }
         fileOut << std::endl;
     }
@@ -66,7 +66,7 @@ Image2Grey Image2Grey::threshold(const int val){
     Image2Grey outputImg = Image2Grey(_w, _h);
     for(int i = 0; i < _w; i++){
         for(int j = 0; j < _h; j++){
-            if((*this)(i,j) < val){
+            if((int)(*this)(i,j) < val){
                 outputImg.setPixel(i,j,0);
             }
             else{

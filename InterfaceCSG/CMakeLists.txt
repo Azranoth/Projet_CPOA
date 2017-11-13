@@ -32,7 +32,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 target_link_libraries(${PROJECT_NAME} 
         Qt5::Widgets 
-        Qt5::OpenGL 
+        Qt5::OpenGL
+        vector_matrix
+        image
         debug gtestd optimized gtest
         debug gmockd optimized gmock
         ${CMAKE_THREAD_LIBS_INIT}

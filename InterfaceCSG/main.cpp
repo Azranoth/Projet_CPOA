@@ -315,8 +315,17 @@ int main(int argc, char *argv[]){
     input[10] = 3; input[11] = 4; input[12] = 5; input[13] = 6; input[14] = 7;
     input[15] = 4; input[16] = 5; input[17] = 6; input[18] = 7; input[19] = 8;
     input[20] = 5; input[21] = 6; input[22] = 7; input[23] = 8; input[24] = 9;
-    Image2Grey img = Image2Grey(5,5,input);
-    img.exportToPGM();
+    //sImage2Grey img = Image2Grey(5,5,input);
+    //img.exportToPGM();
+    Image2Grey img = Image2Grey(5,5);
+    img.importPGM("PGM_13-11-17_22:37:55.csv.pgm");
+
+    unsigned char *datas = img.getData();
+    for(int i = 0; i < 25; i++){
+        if(i%5 == 0) std::cout << std::endl;
+        std::cout << std::to_string(datas[i]) << " ";
+    }
+    std::cout << std::endl;
 
     return a.exec();
 }
