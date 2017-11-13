@@ -12,6 +12,8 @@
 #include "Array.h"
 #include "matrix33d.h"
 #include "vector.h"
+#include "image2d.h"
+#include "image2grey.h"
 
 // TESTS
 #include <gmock/gmock.h>

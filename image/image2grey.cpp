@@ -24,19 +24,18 @@ void Image2Grey::exportToPGM(){
         }
         fileOut << std::endl;
     }
-
     fileOut.close();
 }
-/*
+
 void Image2Grey::importPGM(const std::string filename){
-    ifstream(filename);
-    stringstream ss;
-    string inputLine = "";
+    std::ifstream infile(filename);
+    std::stringstream ss;
+    std::string inputLine = "";
 
     // Première ligne -> Version PGM du fichier
-    getline(infile, inputLine);
+    std::getline(infile, inputLine);
     if(inputLine.compare("P5") != 0){
-        std::out << "PGM version error : Binary required (P5)" << std::endl;
+        std::cout << "PGM version error : Binary required (P5)" << std::endl;
         exit(1);
     }
     // Seconde ligne -> dimensions de l'image
@@ -50,7 +49,7 @@ void Image2Grey::importPGM(const std::string filename){
 
     infile.close();
 }
-*/
+
 Image2Grey Image2Grey::subSampling(){
 
     unsigned char *sampledData = new unsigned char[_w*_h/4];
