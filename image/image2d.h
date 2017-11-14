@@ -52,7 +52,11 @@ public:
     void setPixel(const int x, const int y, const T& value){
         (*this)(x,y) = value;
     }
+    void setPixel(const int x, const T& value){
+        _imgData[x] = value;
+    }
 
+    // FONCTIONS .cpp
     void imgSwap(Image2D<T> img);
     Image2D<T> crop(const int origin_x, const int origin_y, const int width, const int height);
 
