@@ -20,67 +20,103 @@ void Image2Grey::exportToPGM(){
     // Valeur des pixels
     for(int i = 0; i < _w; i++){
         for(int j = 0; j < _h; j++){
-            fileOut << (int)_imgData[i+j*_w] << " ";
+            fileOut << (int)_imgData[i*_w+j] << " ";
         }
         fileOut << "\n";
     }
     fileOut.close();
 }
 
+
 void Image2Grey::importPGM(const std::string filename){
 
-    std::ifstream infile(filename);
-    std::stringstream ss;
-    std::string inputLine = "";
+    std::ifstream is;
+    is.open(filename);
 
-    // Première ligne -> Version PGM du fichier
-    std::getline(infile, inputLine);
-    if(inputLine.compare("P5") != 0){
-        std::cout << "PGM version error : Binary required (P5)" << std::endl;
+    // Récupération de la taille du fichier
+    is.seekg(0, is.end);
+    int length = is.tellg();
+    is.seekg(0, is.beg);
+
+    char* buffer = new char[length];
+    // Remplissage du buffer
+    is.read(buffer, length);
+    is.close();
+
+    std::stringstream stream;
+    stream.str(buffer);
+    delete[] buffer;
+
+    std::string str;
+    std::getline(stream, str);
+    if (str != "P2") {
+        std::cerr << "Bad magic number : " << str << std::endl;
         exit(1);
     }
-    // Seconde ligne -> dimensions de l'image
-    ss << infile.rdbuf();
-    ss >> _w >> _h;
-    int data[_w*_h];
 
-    int max_value;
-    ss >> max_value;
-
-    std::cout << "max value : " << max_value << std::endl;
-
-    std::cout << "import\n";
-    for(int i = 0; i < _w*_h; i++){
-        ss >> data[i];
-        std::cout << data[i] << " ";
+    // Ignorer les commenaires
+    std::getline(stream, str);
+    while (str[0] == '#') {
+        std::getline(stream, str);
     }
 
-    //Réinitialisation du tableau de pixels
-    if(_imgData != nullptr){
-        delete [] _imgData; _imgData = nullptr;
+    // Récupération des dimensions de l'image dans _w et _h
+    std::stringstream ss;
+    ss.str(str);
+    ss >> _w;
+    ss >> _h;
+
+    // Réinitialisation du tableau de pixels
+    if (_imgData != nullptr) {
+        delete[] _imgData, _imgData = nullptr;
     }
     _imgData = new unsigned char[_w*_h];
 
-    // Affectation des nouvelles valeurs aux pixels de l'image
-    for(int i = 0; i < _w*_h; i++){
-        setPixel(i, (unsigned int)data[i]);
+    // Ignorer les commentaires
+    std::getline(stream, str);
+    while (str[0] == '#') {
+        std::getline(stream, str);
     }
-    infile.close();
+
+    ss.str(str);
+    ss.seekg(0, ss.beg);
+
+    int max_value;
+    ss >> max_value;
+    float f = 255/(float)max_value;
+
+    // Ignorer les commentaires
+    while (stream.str()[stream.tellg()] == '#') {
+        std::getline(stream, str);
+    }
+
+    // Affectation des nouvelles valeurs
+    unsigned int v1, v2;
+
+    for (int i=0; i < (int)_h; i++) {
+        for (int j=0; j < (int)_w; j++) {
+            stream >> v1;
+            v2 = (unsigned int) (f*v1);
+            _imgData[j + i*_w] = v2;
+        }
+    }
 }
+
 
 Image2Grey Image2Grey::subSampling(){
 
-    unsigned char *sampledData = new unsigned char[_w*_h/4];
+    Image2Grey subSampledImg = Image2Grey(_w/2, _h/2);
 
-    for(int i = 0; i < _w/2; i+=2){
-        for(int j = 0; j < _h/2; j+=2){
-            sampledData[i*_w+j] = _imgData[i*_w+j];
+    for(int i = 0; i < _w; i+=2){
+        for(int j = 0; j < _h; j+=2){
+            subSampledImg.setPixel(i/2, j/2, (*this)(i,j));
         }
     }
 
-    Image2Grey subSampledImg = Image2Grey(_w/2, _h/2);
+
     return subSampledImg;
 }
+
 
 Image2Grey Image2Grey::threshold(const int val){
     Image2Grey outputImg = Image2Grey(_w, _h);
