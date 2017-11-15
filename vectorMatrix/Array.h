@@ -1,9 +1,16 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
+// LIBS
 #include <math.h>
 
+
 template <typename T, int N>
+/**
+ * @brief The Array class
+ *
+ * Contient un tableau statique de valeurs de type T
+ */
 class Array{
     protected :
         T data[N];
@@ -30,7 +37,21 @@ class Array{
         T& operator[](const int index);
         Array<T,N>& operator=(const Array<T,N>& input);
         Array<T,N>& operator=(const T input[N]);
+
+        /**
+         * @brief swap
+         * @param array
+         *
+         * Echange les valeurs de l'array courant & de l'array passé en argument
+         */
         void swap(Array<T,N>& array);
+
+        /**
+         * @brief get_ptr
+         * @return
+         *
+         * Renvoie un pointeur vers le tableau de données de l'array courant
+         */
         const T* get_ptr() const;
 
 };

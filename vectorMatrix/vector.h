@@ -11,6 +11,13 @@
 
 //--------Classe Vector générique--------//
 template<typename T, int N>
+/**
+ * @brief The Vector class
+ *
+ * Hérite de la classe Array
+ *
+ * Contient un array de type T et de taille N, représentant un vecteur
+ */
 class Vector: public Array<T,N>{
 
 public:
@@ -31,6 +38,11 @@ public:
     }
 
     // AFFICHAGE D'UN VECTEUR
+    /**
+     * @brief display
+     *
+     * Affiche le vecteur courant sur la sortie standard
+     */
     void display(){
         std::cout << "[";
         for(int i = 0; i < N; i++){
@@ -86,6 +98,13 @@ public:
         }
     }
         // Produit scalaire
+    /**
+     * @brief dot
+     * @param vec
+     * @return T
+     *
+     * Renvoie le produit scalaire du vecteur courant avec un vecteur vec de même type & de même taille
+     */
     T dot(const Vector<T,N>& vec){
         int sum = 0;
         for(int i = 0; i<N; i++)
@@ -194,6 +213,14 @@ public:
     inline Vec4f() : Vector<double,4>(){}
     inline Vec4f(const double input[4]) : Vector<double,4>(input){}
     inline Vec4f(const Array<double,4> array) : Vector<double,4>(array){}
+};
+
+// Classe Vector d'unsigned char utilisée pour Image2RGB
+class Vec3uc : public Vector<unsigned char,3>{
+public:
+    inline Vec3uc() : Vector<unsigned char,3>(){}
+    inline Vec3uc(const unsigned char input[3]) : Vector<unsigned char,3>(input){}
+    inline Vec3uc(const Array<unsigned char,3> array) : Vector<unsigned char,3>(array){}
 };
 
 

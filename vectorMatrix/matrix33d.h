@@ -1,8 +1,15 @@
 #ifndef MATRIX33D
 #define MATRIX33D
 
+
+// SOURCES
 #include "vector.h"
 
+/**
+ * @brief The Matrix33d class
+ *
+ * Représente une matrice 3x3 de double sous la forme d'un tableau statique de 3 arrays contenant chacun 3 double
+ */
 class Matrix33d {
 protected:
     Array<double,3> matData[3];
@@ -43,6 +50,11 @@ public:
     }
 
     // AFFICHAGE
+    /**
+     * @brief display
+     *
+     * Affiche la matrice33 courante sur la sortie standard
+     */
     void display(){
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
@@ -104,39 +116,21 @@ public:
     }
 
     // FONCTIONS
-    Matrix33d inversion(){
-
-        double det = matData[0][0]*matData[1][1]*matData[2][2] +
-                matData[0][1]*matData[1][2]*matData[2][0] +
-                matData[0][2]*matData[1][0]*matData[2][1] -
-                matData[0][2]*matData[1][1]*matData[2][0] -
-                matData[0][0]*matData[1][2]*matData[2][1] -
-                matData[0][1]*matData[1][0]*matData[2][2];
-
-        if(det == 0){
-            std::cout << "DETERMINANT NUL\n";
-            exit(1);
-        }
-
-        double tab_invert[3][3];
-
-        tab_invert[0][0] =  (matData[1][1]*matData[2][2] - matData[1][2]*matData[2][1]) / det;
-        tab_invert[1][0] = -(matData[1][0]*matData[2][2] - matData[2][0]*matData[1][2]) / det;
-        tab_invert[2][0] =  (matData[1][0]*matData[2][1] - matData[2][0]*matData[1][1]) / det;
-
-        tab_invert[0][1] = -(matData[0][1]*matData[2][2] - matData[2][1]*matData[0][2]) / det;
-        tab_invert[1][1] =  (matData[0][0]*matData[2][2] - matData[2][0]*matData[0][2]) / det;
-        tab_invert[2][1] = -(matData[0][0]*matData[2][1] - matData[2][0]*matData[0][1]) / det;
-
-        tab_invert[0][2] =  (matData[0][1]*matData[1][2] - matData[1][1]*matData[0][2]) / det;
-        tab_invert[1][2] = -(matData[0][0]*matData[1][2] - matData[1][0]*matData[0][2]) / det;
-        tab_invert[2][2] =  (matData[0][0]*matData[1][1] - matData[1][0]*matData[0][1]) / det;
-
-        Matrix33d invert = Matrix33d(tab_invert);
-        return invert;
-    }
+    /**
+     * @brief inversion
+     * @return Matrix33d
+     *
+     * Renvoie l'inverse de la matrice33 courante
+     */
+    Matrix33d inversion();
 
     // FONCTION IDENTITE
+    /**
+     * @brief identity
+     * @return Matrix33d
+     *
+     * Renvoie la matrice 3x3 identité
+     */
     static Matrix33d identity(){
         double tab[3][3] = { {1.0, 0.0, 0.0} , {0.0, 1.0, 0.0} , {0.0, 0.0, 1.0} };
         Matrix33d mat = Matrix33d(tab);
@@ -145,37 +139,88 @@ public:
 
     // FONCTIONS DE GENERATION DE MATRICES DE TRANSFORMATION
 
+    /**
+     * @brief rotation
+     * @param angle
+     * @return Matrix33d
+     *
+     * Renvoie une matrice de rotation d'angle "angle" passé en paramètre
+     */
     static Matrix33d rotation(const double angle){
         double tab_rotation[3][3] = { { cos(angle), -sin(angle), 0 } , { sin(angle), cos(angle), 0 } , { 0, 0, 1 } };
         Matrix33d trsf_rotation = Matrix33d(tab_rotation);
         return trsf_rotation;
     }
 
+    /**
+     * @brief translation
+     * @param translate_x
+     * @param translate_y
+     * @return Matrix33d
+     *
+     * Renvoie une matrice de translation (translate_x, translate_y)
+     */
     static Matrix33d translation(const double translate_x, const double translate_y){
          double tab_translation[3][3] = { { 1, 0, translate_x } , { 0, 1, translate_y } , { 0, 0, 1 } };
         Matrix33d trsf_translation = Matrix33d(tab_translation);
         return trsf_translation;
     }
 
+    /**
+     * @brief scaling
+     * @param scale
+     * @return Matrix33d
+     *
+     * Renvoie une matrice d'homothétie d'échelle scale
+     */
     static Matrix33d scaling(const double scale){
         double tab_scaling[3][3] = { { scale, 0, 0 } , { 0, scale, 0 } , { 0, 0, scale } };
         Matrix33d trsf_scaling = Matrix33d(tab_scaling);
         return trsf_scaling;
     }
     // TRANSFORMATION SETTERS
+    /**
+     * @brief setRotation
+     * @param mat
+     * @param angle
+     *
+     * Transforme une matrice mat en une matrice de rotation d'angle "angle"
+     */
     static void setRotation(Matrix33d& mat, const double angle){
         mat = rotation(angle);
     }
 
+    /**
+     * @brief setTranslation
+     * @param mat
+     * @param x
+     * @param y
+     *
+     * Transforme une matrice mat en une matrice de translation (x,y)
+     */
     static void setTranslation(Matrix33d& mat, const double x, const double y){
         mat = translation(x,y);
     }
 
+    /**
+     * @brief setScaling
+     * @param mat
+     * @param scale
+     *
+     * Transforme une matrice mat en une matrice d'homothétie d'échelle scale
+     */
     static void setScaling(Matrix33d& mat, const double scale){
         mat = scaling(scale);
     }
 
     // TRANSFORMATION APPLYER
+    /**
+     * @brief applyTransformation
+     * @param dest_mat
+     * @param transf_mat
+     *
+     * Applique une matrice de transformation transf_mat sur une matrice dest_mat
+     */
     static void applyTransformation(Matrix33d& dest_mat, Matrix33d& transf_mat){
         dest_mat = (transf_mat*dest_mat);
     }
