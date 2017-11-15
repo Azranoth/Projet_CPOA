@@ -1,5 +1,5 @@
-/*
-#include "imgGradient.h"
+
+#include "imggradient.h"
 
 
 
@@ -16,14 +16,15 @@ const int GradientSobel::Sobel5y[25]={1, 4, 6, 4, 1,
 									  -1,-4,-6,-4,-1};
 
 
-Image2<Vec2f> GradientSobel::gradient33(const Image2grey& img_in)
+Image2D<Vec2f> GradientSobel::gradient33(const Image2grey& img_in)
 {
 }
 
 
 
-Image2<Vec2f> GradientSobel::gradient55(const Image2grey& img_in)
+Image2<Vec2f> GradientSobel::gradient55(const Image2Grey& img_in)
 {
+
 }
-*/
+
 

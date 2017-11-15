@@ -19,6 +19,7 @@ public:
     void importPGM(const std::string filename);
     Image2Grey subSampling();
     Image2Grey threshold(const int val);
+    Image2Grey blur(const unsigned char m);
 
 };
 

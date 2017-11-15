@@ -291,7 +291,7 @@ int main(int argc, char *argv[]){
     MainWindow w;
     w.show();
 
-/*
+    /*
     int tab[3] = {2,5,1};
     Vec3i v1 = Vec3i(tab);
     Array<int,3> array = Array<int,3>(); array[0] = 2; array[1] = 5; array[2] = 1;
@@ -315,17 +315,27 @@ int main(int argc, char *argv[]){
     input[10] = 3; input[11] = 4; input[12] = 5; input[13] = 6; input[14] = 7;
     input[15] = 4; input[16] = 5; input[17] = 6; input[18] = 7; input[19] = 8;
     input[20] = 5; input[21] = 6; input[22] = 7; input[23] = 8; input[24] = 9;
-    //sImage2Grey img = Image2Grey(5,5,input);
+    Image2Grey img = Image2Grey(5,5,input);
     //img.exportToPGM();
-    Image2Grey img = Image2Grey(5,5);
-    img.importPGM("PGM_13-11-17_22:37:55.csv.pgm");
+    //Image2Grey img = Image2Grey(5,5);
 
-    unsigned char *datas = img.getData();
-    for(int i = 0; i < 25; i++){
-        if(i%5 == 0) std::cout << std::endl;
+
+    //imgT.importPGM("PGM_14-11-17_22:09:56.csv.pgm");
+    //img.importPGM("PGM_13-11-17_22:37:55.csv.pgm");
+    img.importPGM("gs.pgm");
+
+    unsigned char m = 2;
+    Image2Grey imgT = img.blur(1);
+    unsigned char *datas = imgT.getData();
+    std::cout << "img dimensions : " << imgT.height() << " x " << imgT.width() << std::endl;
+    for(int i = 0; i < imgT.width()*imgT.height(); i++){
+        if(i%imgT.width() == 0) std::cout << std::endl;
         std::cout << std::to_string(datas[i]) << " ";
     }
     std::cout << std::endl;
 
+    imgT.exportToPGM();
     return a.exec();
 }
+
+

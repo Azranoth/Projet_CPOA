@@ -15,7 +15,7 @@ void Image2Grey::exportToPGM(){
     std::ofstream fileOut (fileToOpen.c_str(), std::ios::out);
     // Nombre magique PGM, dimensions de l'image & valeur maximale d'un pixel
     // Fichier PGM binaire -> valeurs comprises entre 0 et 255
-    fileOut << "P5\n" << _w << " " << _h << "\n" << "255\n";
+    fileOut << "P2\n" << _w << " " << _h << "\n" << "255\n";
 
     // Valeur des pixels
     for(int i = 0; i < _w; i++){
@@ -131,6 +131,36 @@ Image2Grey Image2Grey::threshold(const int val){
         }
     }
     return outputImg;
+}
+
+Image2Grey Image2Grey::blur(const unsigned char m){
+    Image2Grey blurImg = Image2Grey(_w,_h);
+
+    for(int j=1; j < _h-1; j++){
+        for(int i=1; i <_w-1; i++){
+            unsigned char v = 0;
+            unsigned char p = (int)m;
+            for(int l=-1; l < 2; l++){
+                for(int k=-1; k < 2; k++)
+                    v += (*this)(i+k,j+l)*(p++);
+            }
+            blurImg.setPixel(i,j,v);
+        }
+    }
+
+
+    for(int j=0;j<_h;j++){
+        blurImg.setPixel(0,j,(*this)(0,j));
+        blurImg.setPixel(_w-1,j,(*this)(_w-1,j));
+    }
+
+    for(int i=0;i<_w;i++){
+        blurImg.setPixel(i,0,(*this)(i,0));
+        blurImg.setPixel(i,_h-1,(*this)(i,_h-1));
+    }
+
+    return blurImg;
+
 }
 
 
