@@ -70,6 +70,11 @@ public:
         return b;
     }
 
+    void operator=(const Vector<T,N>& vec){
+        for(int i = 0; i < N; i++)
+            this->data[i] = vec.data[i];
+    }
+
     Vector<T,N> operator+(const Vector<T,N>& vec){
         Vector<T,N> res = Vector<T,N>();
         for(int i = 0; i < N; i++){

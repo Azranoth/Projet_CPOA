@@ -93,6 +93,7 @@ public:
         return resVec;
     }
 
+
     // MULTIPLICATION D'UNE MATRICE PAR UN Vec3f
     Vec3f operator*(const Vec3f& vec){
         Vec3f vecRes;

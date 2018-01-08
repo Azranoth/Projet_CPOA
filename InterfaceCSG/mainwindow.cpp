@@ -10,6 +10,8 @@
 #include <fstream>
 #include <sstream>
 #include <math.h>
+#include "Array.h"
+#include "Vec2.h"
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),

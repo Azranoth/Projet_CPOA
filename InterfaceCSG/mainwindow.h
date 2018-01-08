@@ -6,14 +6,16 @@
 #include <QKeyEvent>
 
 #include "renderImg.h"
-//#include "csgPrimitive.h"
-//#include "csgTree.h"
+//#include "CsgPrimitive.h"
+#include "CsgTree.h"
+#include "boundingbox.h"
 
 #include "Array.h"
 #include "matrix33d.h"
 #include "vector.h"
 #include "image2d.h"
 #include "image2grey.h"
+#include "image2rgb.h"
 
 // TESTS
 #include <gmock/gmock.h>
@@ -56,35 +58,35 @@ private:
 
 protected:
 	/// current selected node
-//	CsgNode* m_currentNode;
+    CsgNode* m_currentNode;
 
 //	/// current primitive (could be NULL)
-//	CsgPrimitive * m_prim;
+    CsgPrimitive * m_prim;
 
 //	/// current operation (could be NULL)
-//	CsgOperation * m_oper;
+    CsgOperation * m_oper;
 
 //	/// the CSG tree
-//	CsgTree m_tree;
+    CsgTree m_tree;
 
 	/// Bounding Box to draw
-//	BoundingBox m_bb;
+    BoundingBox m_bb;
 
 	/// widget for ascii art grapg drawing
 	GraphTextEdit* m_graphTextEdit;
 
 	/// current transfo matrix for storing current primitive matrix
-//	Matrix33d m_transfo;
+    Matrix33d m_transfo;
 
-//	std::vector<Matrix33d> m_transfos;
-//	std::vector<CsgPrimitive*> m_prims;
-//	Vec2f m_centerSelection;
+    std::vector<Matrix33d> m_transfos;
+    std::vector<CsgPrimitive*> m_prims;
+    Vec2f m_centerSelection;
 
 	/// just to avoid ping-pong signal
 	bool m_stopSignal;
 
 	/// current center of current node
-//	Vec2f m_stored_center;
+    Vec2f m_stored_center;
 
 	void updateTextGraph();
 
